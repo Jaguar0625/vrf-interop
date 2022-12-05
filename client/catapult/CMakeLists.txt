@@ -111,3 +111,5 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/internal/CMakeLists.txt")
 endif()
 
 add_subdirectory(tools)
+
+add_subdirectory(examples)

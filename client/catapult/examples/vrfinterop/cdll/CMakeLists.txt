@@ -1,0 +1,2 @@
+catapult_shared_library_target(catapult.cvrf)
+target_link_libraries(catapult.cvrf catapult.crypto)
