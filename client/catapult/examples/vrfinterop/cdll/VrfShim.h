@@ -18,6 +18,14 @@ void CatapultGenerateVrfProof(
 		const unsigned char* privateKey,
 		struct CVrfProof* vrfProof);
 
+PLUGIN_API
+void CatapultVerifyVrfProof(
+		const struct CVrfProof* vrfProof,
+		const unsigned char* alpha,
+		unsigned int alphaSize,
+		const unsigned char* publicKey,
+		unsigned char* hash512);
+
 #ifdef __cplusplus
 }
 #endif

@@ -23,4 +23,31 @@ void CatapultGenerateVrfProof(
 	std::memcpy(vrfProof->Scalar, cppVrfProof.Scalar.data(), cppVrfProof.Scalar.size());
 }
 
+PLUGIN_API
+void CatapultVerifyVrfProof(
+		const struct CVrfProof* vrfProof,
+		const unsigned char* alpha,
+		unsigned int alphaSize,
+		const unsigned char* publicKey,
+		unsigned char* hash512) {
+	using namespace catapult::crypto;
+	using PublicKey = catapult::Key;
+
+	// 1. create VrfProof from CVrfProof
+	VrfProof cppVrfProof;
+	std::memcpy(cppVrfProof.Gamma.data(), vrfProof->Gamma, ProofGamma::Size);
+	std::memcpy(cppVrfProof.VerificationHash.data(), vrfProof->VerificationHash, ProofVerificationHash::Size);
+	std::memcpy(cppVrfProof.Scalar.data(), vrfProof->Scalar, ProofScalar::Size);
+
+	// - copy publicKey to ByteArray
+	PublicKey cppPublicKey;
+	std::memcpy(cppPublicKey.data(), publicKey, PublicKey::Size);
+
+	// 2. call c++ function
+	auto cppHash512 = VerifyVrfProof(cppVrfProof, { alpha, alphaSize }, cppPublicKey);
+
+	// 3. copy result
+	std::memcpy(hash512, cppHash512.data(), cppHash512.size());
+}
+
 }
