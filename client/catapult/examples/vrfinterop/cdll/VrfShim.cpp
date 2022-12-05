@@ -50,4 +50,19 @@ void CatapultVerifyVrfProof(
 	std::memcpy(hash512, cppHash512.data(), cppHash512.size());
 }
 
+PLUGIN_API
+void CatapultGenerateVrfProofHash(const unsigned char* gamma, unsigned char* hash512) {
+	using namespace catapult::crypto;
+
+	// 1. copy gamma to ByteArray
+	ProofGamma cppGamma;
+	std::memcpy(cppGamma.data(), gamma, ProofGamma::Size);
+
+	// 2. call c++ function
+	auto cppHash512 = GenerateVrfProofHash(cppGamma);
+
+	// 3. copy result
+	std::memcpy(hash512, cppHash512.data(), cppHash512.size());
+}
+
 }

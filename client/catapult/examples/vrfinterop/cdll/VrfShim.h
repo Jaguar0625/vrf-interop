@@ -26,6 +26,9 @@ void CatapultVerifyVrfProof(
 		const unsigned char* publicKey,
 		unsigned char* hash512);
 
+PLUGIN_API
+void CatapultGenerateVrfProofHash(const unsigned char* gamma, unsigned char* hash512);
+
 #ifdef __cplusplus
 }
 #endif
